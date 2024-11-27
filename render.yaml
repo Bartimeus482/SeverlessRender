@@ -1,0 +1,19 @@
+previews:
+  generation: automatic # Enable preview environments
+
+# List all services *except* PostgreSQL databases here
+services:
+  # A web service on the Ruby native runtime
+  - type: web
+    runtime: ruby
+    name: sinatra-app
+    repo: https://github.com/Bartimeus482/SeverlessRender # Default: Repo containing render.yaml
+    numInstances: 1   # Manual scaling configuration. Default: 1 for new services
+    region: oregon # Default: oregon
+    plan: starter    # Default: starter
+    branch: master      # Default: master
+    buildCommand: bundle install
+    preDeployCommand: bundle exec ruby migrate.rb
+    startCommand: bundle exec ruby main.rb
+    autoDeploy: false # Disable automatic deploys
+    maxShutdownDelaySeconds: 120
